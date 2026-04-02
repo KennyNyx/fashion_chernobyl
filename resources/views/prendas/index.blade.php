@@ -14,20 +14,24 @@
     <h1>Prendas</h1>
 
     <div class="d-flex justify-content-end mb-2">
-        <a href="{{ route('prendas.create') }}" class="btn btn-success me-3">
-        <i class="fa-solid fa-plus"></i> Nueva prenda
-        </a>
-        <form action="{{ route('cerrar') }}" method="POST">
-            @csrf
+    <a href="{{ route('prendas.create') }}" class="btn btn-success me-3">
+       <i class="fa-solid fa-plus"></i> Nueva prenda
+    </a>
+    <form action="{{ route('cerrar') }}" method="POST">
+        @csrf
+        <button class="btn btn-danger me-3">Cerrar sesión</button>
+    </form>
 
-            <button class="btn btn-danger me-3">Cerrar sesión</button>
-        </form>
-        @if(auth()->user()->is_admin)
-            <a href="{{ route('admin-dashboard') }}" class="btn btn-secondary">
-                Panel Admin
-            </a>
-        @endif
+    @if(auth()->user()->is_admin)
+        <a href="{{ route('registro') }}" class="btn btn-secondary me-3">
+            Crud de usuarios
+        </a>
+    @endif
+
+        
     </div>  
+
+    @include('partials.alerts')
 
     <table class="table table-striped table-hover">
         <thead>

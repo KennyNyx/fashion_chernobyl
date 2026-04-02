@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PrendasController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -11,7 +12,10 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function () {
     // Generar rutas de todos los metodos del controlador
     Route::resource('prendas', PrendasController::class);
+    Route::resource('admin', AdminController::class);
+    
 });
+
 
 // Crear ruta para la vista de actualización de un registro
 Route::get('/prendas/{id}/edit', [
@@ -49,13 +53,16 @@ Route::post('/cerrar', [
 ])->name('cerrar');
 
 Route::middleware(['auth', 'admin'])->group(function () {
-    // Ruta para el usuario administrador
-    Route::get('/admin-dashboard',[
-        AuthController::class, 'adminDashboard'
-    ])->name('admin-dashboard');
+    
+   // Crear ruta para la vista de actualización de un registro
+    Route::get('/admin/{id}/edit', [
+        AdminController::class, 'edit'
+    ])->name('admin.edit');
+
+    // Crear ruta para actualizar el registro
+    Route::get('admin/{id}', [
+        AdminController::class, 'update'
+    ])->name('admin.update');
+
 });
 
-//Ruta para formulario para registrar un nuevo usuario por parte del administrador
-Route::get('/registroAdmin', [
-    AuthController::class, 'registrodeAdmin'
-])->name('registroAdmin');

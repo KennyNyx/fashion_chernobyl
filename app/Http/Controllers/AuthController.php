@@ -34,7 +34,8 @@ class AuthController extends Controller
         // Iniciar sesión de forma automatica
         Auth::login($user);
 
-        return redirect()->route('registro');
+        return redirect()->route('registro')
+        ->with('success', 'Cuenta creada exitosamente');
     }
 
     //Metodo para regresar a la vista del formulario de registro para administradores
@@ -69,25 +70,28 @@ class AuthController extends Controller
     // Método para verificar el inicio de sesión
     public function login(Request $request){
 
-        // Validar los datos que se obtienen del formulario
-        $data = $request -> validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+    // VALIDACIÓN
+    $data = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ], [
+        'email.required' => 'El correo es obligatorio',
+        'email.email' => 'El correo no es válido',
+        'password.required' => 'La contraseña es obligatoria',
+    ]);
 
-        // Se realiza una validación para generar la sesión
-        if(Auth::attempt($data)){
-            // Generar la sesión
-            $request -> session() -> regenerate();
-
-            // Redireccionar al usuario a cualquier ruta del sistema
-            return redirect() -> route('prendas.index');
-        }
-
-        return back() -> withErrors([
-            'email' => 'datos incorrectos',
-        ]);
+    // LOGIN
+    if(Auth::attempt($data)){
+        $request->session()->regenerate();
+        return redirect()->route('prendas.index')
+            ->with('success', 'Bienvenido');
     }
+
+    // ERROR DE LOGIN
+    return back()->withErrors([
+        'email' => 'Correo o contraseña incorrectos',
+    ]);
+}
 
     public function logout(Request $request){
 

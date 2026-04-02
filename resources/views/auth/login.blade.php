@@ -10,6 +10,14 @@
     @extends('layouts.app')
     @section('content')
 <center><h1>Inicio de sesión</h1></center>
+
+<!-- ALERTA DE ERRORES -->
+    @error('email')
+        <div class="alert alert-danger">
+            {{ $message }}
+        </div>
+    @enderror
+    
     <form action="{{ route('acceso.store') }}" method="POST">
 
         @csrf
@@ -25,13 +33,6 @@
         <a href="{{ route('registro') }}" class="btn btn-outline-success">
              Crear cuenta
         </a>
-    </div>
-
-    <div class="d-flex justify-content-end mb-2">
-        <a href="{{ route('registroAdmin') }}" class="btn btn-outline-primary">
-             Crear cuenta de administrador
-        </a>
-
     </div>
 
     @endsection

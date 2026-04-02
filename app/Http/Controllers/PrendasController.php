@@ -32,7 +32,8 @@ class PrendasController extends Controller{
             'stock' => $request->stock
         ]);
         // Redireccionar al usuario al formulario
-        return redirect()->route('prendas.create');
+        return redirect()->route('prendas.index')
+        ->with('success', 'Prenda registrada');
     }
 
     /**
@@ -72,7 +73,7 @@ class PrendasController extends Controller{
 
         // Redirigir al usuario al index y enviarle un mensaje
         return redirect()->route('prendas.index')
-        ->with('success', 'Actualizaión exitosa');
+        ->with('success', 'Actualización exitosa');
     }
 
     /**
