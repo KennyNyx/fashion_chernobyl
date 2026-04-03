@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Prenda;
+use App\Models\Categoria;
+
 class PrendasController extends Controller{
     /**
      * Display a listing of the resource.
@@ -15,26 +17,33 @@ class PrendasController extends Controller{
      * Show the form for creating a new resource.
      */
     public function create(){
-        return view('prendas.create');
+      
+        $categorias = Categoria::all();
+        return view('prendas.create', compact('categorias'));
     }
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request){
-        // Usa el modelo para mandar la información a la BD
+   public function store(Request $request){
+        $request->validate([
+            'nombre' => 'required',
+            'categoria_id' => 'required|exists:categorias,id',
+            'precio' => 'required',
+            'stock' => 'required'
+        ]);
+
         Prenda::create([
-            // <NombreFormulario => $request-><NombreBD>
             'nombre' => $request->nombre,
-            'categoria' => $request->categoria,
+            'categoria_id' => $request->categoria_id,
             'color' => $request->color,
             'talla' => $request->talla,
             'precio' => $request->precio,
             'stock' => $request->stock
         ]);
-        // Redireccionar al usuario al formulario
+
         return redirect()->route('prendas.index')
-        ->with('success', 'Prenda registrada');
-    }
+            ->with('success', 'Prenda creada correctamente');
+}
 
     /**
      * Display the specified resource.

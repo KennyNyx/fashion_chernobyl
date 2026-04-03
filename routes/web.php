@@ -4,16 +4,18 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PrendasController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoriasController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::middleware(['auth'])->group(function () {
+
     // Generar rutas de todos los metodos del controlador
     Route::resource('prendas', PrendasController::class);
     Route::resource('admin', AdminController::class);
-    
+    Route::resource('categorias', CategoriasController::class);
 });
 
 
@@ -26,6 +28,16 @@ Route::get('/prendas/{id}/edit', [
 Route::get('prendas/{id}', [
     PrendasController::class, 'update'
 ])->name('prendas.update');
+
+// Crear ruta para la vista de actualización de un registro
+Route::get('/categorias/{id}/edit', [
+    CategoriasController::class, 'edit'
+])->name('categorias.edit');
+
+// Crear ruta para actualizar el registro
+Route::get('categorias/{id}', [
+    CategoriasController::class, 'update'
+])->name('categorias.update');
 
 // Ruta para el formulario de registro
 Route::get('/registro', [

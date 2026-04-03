@@ -23,9 +23,18 @@
             <input type="text" name="nombre" placeholder="Nombre" class="form-control">
         </div>
 
-        <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-layer-group"></i></span>
-            <input type="text" name="categoria" placeholder="Categoria" class="form-control">
+        <div  class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-layer-group"></i></span>
+            <select name="categoria_id" class="form-control" required>
+                <option value="">Selecciona una categoría</option>
+
+                @foreach($categorias as $categoria)
+                    <option value="{{ $categoria->id }}">
+                        {{ $categoria->nombre }}
+                    </option>
+                @endforeach
+
+            </select>
         </div>
          
         <div class="input-group mb-3">
@@ -52,10 +61,17 @@
     </form>
 
       <div class="d-flex justify-content-end mb-2">
+      <div class="d-flex justify-content-end mb-2 me-3">
             <a href="{{ route('prendas.index') }}" class="btn btn-outline-success">
-                <i class="fa-solid fa-eye"></i> Ver Prendas
+                <i class="fa-solid fa-eye"></i> Ver prendas
             </a>
         </div>
+        <div class="d-flex justify-content-end mb-2 me-3">
+        <a href="{{ route('prendas.index') }}" class="btn btn-danger">
+            <i class="fa-solid fa-rotate-left"></i> Regresar
+        </a>
+    </div>
+    </div>
 
     @endsection
 </body>

@@ -11,18 +11,7 @@
 
     @section('content')
 
-    <h1>Usuarios</h1>
-
-    <div class="d-flex justify-content-end mb-2">
-    <a href="{{ route('admin.create') }}" class="btn btn-success me-3">
-       <i class="fa-solid fa-plus"></i> Nuevo usuario
-    </a>
-    <form action="{{ route('cerrar') }}" method="POST">
-        @csrf
-        <button class="btn btn-danger me-3">Cerrar sesión</button>
-    </form>
-
-    </div>  
+    <center><h1>Usuarios</h1></center>
 
     @include('partials.alerts')
 
