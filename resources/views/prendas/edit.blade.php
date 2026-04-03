@@ -19,8 +19,17 @@
         @method('PUT')
         <input value="{{ $prenda->nombre }}" type="text" name="nombre" placeholder="Nombre" class="form-control">
         <br>
-        <input value="{{ $prenda->categoria }}" type="text" name="categoria" placeholder="Categoria" class="form-control">
-        <br>
+        <select name="categoria_id" class="form-control">
+            <option value="">Seleccione una categoría</option>
+
+            @foreach($categorias as $categoria)
+                <option value="{{ $categoria->id }}"
+                    {{ $prenda->categoria_id == $categoria->id ? 'selected' : '' }}>
+                    {{ $categoria->nombre }}
+                </option>
+            @endforeach
+        </select>
+        <br>    
         <input value="{{ $prenda->color }}" type="text" name="color" placeholder="Color" class="form-control">
         <br>
         <input value="{{ $prenda->talla }}" type="text" name="talla" placeholder="Talla" class="form-control">

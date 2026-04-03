@@ -59,7 +59,8 @@ class PrendasController extends Controller{
     public function edit(Prenda $prenda)
     {
         //
-        return view('prendas.edit', compact('prenda'));
+        $categorias = Categoria::all(); // 👈 traer todas
+        return view('prendas.edit', compact('prenda', 'categorias'));
     }
 
     /**
@@ -71,7 +72,7 @@ class PrendasController extends Controller{
         // Crear la validación para el formulario
         $request->validate([
             'nombre' => 'required',
-            'categoria' => 'required',
+            'categoria_id' => 'required|exists:categorias,id',
             'color' => 'required',
             'talla' => 'required',
             'precio' => 'required',
