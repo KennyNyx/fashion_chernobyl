@@ -10,7 +10,7 @@
     @extends('layouts.app')
 
     @section('content')
-
+    @include('partials.alerts')
     <h1>REGISTRO</h1>
     <br>
 

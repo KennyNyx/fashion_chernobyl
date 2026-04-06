@@ -28,11 +28,9 @@ class AuthController extends Controller
             'name' => $request -> name,            
             'email' => $request -> email,
             'phone' => $request -> phone,
-            'password' =>  Hash::make($request -> password),      
+            'password' =>  Hash::make($request -> password),
+            'is_admin' => $request->has('is_admin'),      
         ]);
-
-        // Iniciar sesión de forma automatica
-        Auth::login($user);
 
         return redirect()->route('registro')
         ->with('success', 'Cuenta creada exitosamente');
@@ -60,7 +58,7 @@ class AuthController extends Controller
             'is_admin' => $request->has('is_admin'),    
         ]);
 
-        return redirect()->route('admin-dashboard');
+        return redirect()->route('admin.index');
     }
 
     // Metodo para regresar vista de inicio de sesión
@@ -93,6 +91,7 @@ class AuthController extends Controller
     ]);
 }
 
+// Cierre de sesión
     public function logout(Request $request){
 
     // Cierre de sesión
@@ -103,9 +102,5 @@ class AuthController extends Controller
     $request->session()->regenerateToken();
 
     return redirect('/acceso');
-    }
-
-    public function adminDashboard(){
-        return view('admin.dashboard');
     }
 }
