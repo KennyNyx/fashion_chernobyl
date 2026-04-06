@@ -78,3 +78,5 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 });
 
+Route::get('/productos', [PrendasController::class, 'home'])->name('productos');
+

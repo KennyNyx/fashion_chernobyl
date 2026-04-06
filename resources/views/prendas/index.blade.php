@@ -41,6 +41,12 @@
                     <i class="fa-solid fa-plus"></i>Nueva categoria
                 </a>
             </li>
+
+             <li>
+                <a class="dropdown-item" href="{{ route('productos') }}">
+                    <i class="fa-solid fa-plus"></i>Ingresar a la API
+                </a>
+            </li>
             
         </ul>
     </div>

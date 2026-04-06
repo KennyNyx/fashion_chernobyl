@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Prenda;
 use App\Models\Categoria;
+use Illuminate\Support\Facades\Http;
 
 class PrendasController extends Controller{
     /**
@@ -97,4 +98,19 @@ class PrendasController extends Controller{
         return redirect()->route('prendas.index')
         ->with('success', 'Prenda eliminada');
     }
+
+
+
+public function home()
+{
+    // Obtener todos los productos
+    $products = Http::get('https://api.escuelajs.co/api/v1/products')
+        ->json();
+
+    // Obtener categorías
+    $categories = Http::get('https://api.escuelajs.co/api/v1/categories')
+        ->json();
+
+    return view('prendas.home', compact('products', 'categories'));
+}
 }
